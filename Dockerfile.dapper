@@ -1,0 +1,19 @@
+FROM maven:3.6
+
+RUN apt-get update && apt-get install -y gcc ca-certificates git wget curl vim less file xz-utils unzip
+
+ARG DAPPER_HOST_ARCH
+ENV HOST_ARCH=${DAPPER_HOST_ARCH} ARCH=${DAPPER_HOST_ARCH}
+
+ENV DOCKER_URL=https://get.docker.com/builds/Linux/x86_64/docker-1.10.3
+
+RUN wget -O - ${DOCKER_URL} > /usr/bin/docker && chmod +x /usr/bin/docker
+
+ENV DAPPER_RUN_ARGS --privileged
+ENV DAPPER_OUTPUT ./dist
+ENV DAPPER_SOURCE /eureka-docker
+ENV DAPPER_DOCKER_SOCKET true
+WORKDIR ${DAPPER_SOURCE}
+
+ENTRYPOINT ["./scripts/entry"]
+CMD ["ci"]

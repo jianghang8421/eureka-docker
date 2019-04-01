@@ -1,0 +1,13 @@
+#!/bin/bash
+set -e
+
+cd $(dirname $0)/../package
+
+cp ../dist/eureka-server.jar .
+
+TAG=v1.0.0
+REPO=${REPO:-jianghang8421}
+
+IMAGE=${REPO}/eureka:${TAG}
+
+docker build -t ${IMAGE} .

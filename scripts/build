@@ -1,0 +1,6 @@
+mkdir -p ${DAPPER_SOURCE}/dist
+cd ${DAPPER_SOURCE}/eureka
+mvn install
+cd ./target
+ls -a
+cp eureka-0.0.1-SNAPSHOT.jar ${DAPPER_SOURCE}/dist/eureka-server.jar
